@@ -19,8 +19,8 @@
     <div>
         <label>Фото:</label><br>
         <input type="file" name="image" accept="image/*">
-        {% if news.image %}
-            <p>Текущее фото: <img src="{{ news.image.url }}" width="100"></p>
+        {% if news and news.image %}
+            <p>Текущее фото: <img src="{{ news.image.url }}" width="100" style="margin-top:10px;"></p>
         {% endif %}
     </div>
     <br>

@@ -32,8 +32,8 @@
     <div>
         <label>Фото:</label><br>
         <input type="file" name="photo" accept="image/*">
-        {% if employee.photo %}
-            <p><img src="{{ employee.photo.url }}" width="100"></p>
+        {% if employee and employee.photo %}
+            <p><img src="{{ employee.photo.url }}" width="100" style="margin-top:10px;"></p>
         {% endif %}
     </div>
     <div>
