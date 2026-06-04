@@ -1,0 +1,23 @@
+{% extends 'hotel/base.html' %}
+{% block title %}{% if vacancy %}Редактировать вакансию{% else %}Добавить вакансию{% endif %}{% endblock %}
+{% block content %}
+<h2>{% if vacancy %}✏ Редактировать вакансию{% else %}➕ Добавить вакансию{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Название должности:</label><br>
+        <input type="text" name="title" value="{{ vacancy.title|default:'' }}" required>
+    </div>
+    <div>
+        <label>Описание:</label><br>
+        <textarea name="description" required>{{ vacancy.description|default:'' }}</textarea>
+    </div>
+    <div>
+        <label>Зарплата:</label><br>
+        <input type="text" name="salary" value="{{ vacancy.salary|default:'' }}" required>
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="/vacancies/" class="btn">Отмена</a>
+</form>
+{% endblock %}

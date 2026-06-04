@@ -1,0 +1,137 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h2>🏠 Добро пожаловать в гостиницу "Уют"</h2>
+<p>Комфортное размещение в центре города. Нас выбирают за уют, чистоту и внимательный сервис.</p>
+
+<!-- Курс валют -->
+<h3>💱 Курс валют</h3>
+{% if user.is_authenticated %}
+    <div class="exchange-rates" style="background: #f0f4f8; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+        <p>💵 1 Доллар США = <strong>2.75</strong> белорусских рублей</p>
+        <p>💶 1 Евро = <strong>3.10</strong> белорусских рублей</p>
+    </div>
+{% else %}
+    <div style="background:#fff3cd; padding:15px; border-radius:10px; margin-bottom: 30px;">
+        🔒 Для просмотра курсов валют <a href="/login/">войдите</a> в систему
+    </div>
+{% endif %}
+
+{% if is_admin_or_manager and chart_base64 %}
+    <h3>📊 Статистика забронированных номеров</h3>
+    <img src="data:image/png;base64,{{ chart_base64 }}" alt="График броней" style="max-width:100%; border-radius:16px;">
+    
+    {% if statistics %}
+    <div style="background: white; border-radius: 16px; padding: 25px; margin-top: 30px; overflow-x: auto;">
+        <h3>📈 Статистические показатели по броням</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            <div>
+                <p><strong>Всего броней:</strong></p>
+                <p style="font-size: 28px; color: #667eea;">{{ statistics.total_bookings }}</p>
+            </div>
+            <div>
+                <p><strong>Общая выручка:</strong></p>
+                <p style="font-size: 28px; color: #27ae60;">{{ statistics.total_revenue|floatformat:0 }} руб.</p>
+            </div>
+            <div>
+                <p><strong>Средняя сумма брони:</strong></p>
+                <p style="font-size: 24px; color: #f39c12;">{{ statistics.avg_amount|floatformat:2 }} руб.</p>
+            </div>
+            <div>
+                <p><strong>Медиана суммы:</strong></p>
+                <p style="font-size: 24px; color: #9b59b6;">{{ statistics.median_amount|floatformat:2 }} руб.</p>
+            </div>
+            <div>
+                <p><strong>Мин. сумма:</strong></p>
+                <p style="font-size: 20px; color: #e74c3c;">{{ statistics.min_amount|floatformat:2 }} руб.</p>
+            </div>
+            <div>
+                <p><strong>Макс. сумма:</strong></p>
+                <p style="font-size: 20px; color: #e74c3c;">{{ statistics.max_amount|floatformat:2 }} руб.</p>
+            </div>
+        </div>
+        
+        <h3 style="margin-top: 30px;">📅 Статистика по месяцам</h3>
+        <table style="width:100%; border-collapse: collapse; min-width: 400px;">
+            <thead>
+                <tr>
+                    <th style="padding:12px; background:#667eea; color:white; text-align:center;">Месяц</th>
+                    <th style="padding:12px; background:#667eea; color:white; text-align:center;">Кол-во броней</th>
+                    <th style="padding:12px; background:#667eea; color:white; text-align:center;">Средняя сумма</th>
+                    <th style="padding:12px; background:#667eea; color:white; text-align:center;">Общая выручка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for month in statistics.by_month %}
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding:12px; text-align:center;">{{ month.month }}</td>
+                    <td style="padding:12px; text-align:center;">{{ month.count }}</td>
+                    <td style="padding:12px; text-align:center;">{{ month.avg|floatformat:2 }} руб.</td>
+                    <td style="padding:12px; text-align:center;">{{ month.total|floatformat:0 }} руб.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+{% endif %}
+
+<h3>🌤 Погода в Минске</h3>
+{% if user.is_authenticated %}
+    {% if weather_data %}
+        {% if weather_data.error %}
+            <p>⚠️ {{ weather_data.error }}</p>
+        {% else %}
+            <div class="weather">
+                <p>📍 {{ weather_data.name }}</p>
+                <p>🌡 Температура: {{ weather_data.main.temp }}°C</p>
+                <p>💨 Ветер: {{ weather_data.wind.speed }} м/с</p>
+                <p>☁️ {{ weather_data.weather.0.description }}</p>
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Данные о погоде временно недоступны</p>
+    {% endif %}
+{% else %}
+    <div style="background:#fff3cd; padding:15px; border-radius:10px;">
+        🔒 Для просмотра погоды <a href="/login/">войдите</a> в систему
+    </div>
+{% endif %}
+
+<h3>📅 Текстовый календарь</h3>
+<div class="calendar">
+    <h4>{{ current_month }}</h4>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
+        </tr>
+        {% for week in calendar %}
+        <tr>
+            {% for day in week %}
+                {% if day == 0 %}
+                    <td> </td>
+                {% else %}
+                    <td>{{ day }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h3>📰 Последняя новость</h3>
+{% if latest_news %}
+    <div class="news-item">
+        <h3>{{ latest_news.title }}</h3>
+        {% if latest_news.image %}
+            <img src="{{ latest_news.image.url }}" style="max-width: 100%; max-height: 300px; border-radius: 12px; margin: 15px 0;">
+        {% endif %}
+        <p><small>{{ latest_news.published_at|date:"d.m.Y" }}</small></p>
+        <p>{{ latest_news.short_description }}</p>
+        <a href="/news/{{ latest_news.id }}/" class="btn">Читать далее →</a>
+    </div>
+{% else %}
+    <p>Новостей пока нет</p>
+{% endif %}
+{% endblock %}

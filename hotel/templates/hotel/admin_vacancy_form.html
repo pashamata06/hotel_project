@@ -1,0 +1,23 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Добавить вакансию{% endblock %}
+{% block content %}
+<h2>➕ Добавить вакансию</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Название:</label><br>
+        <input type="text" name="title" required>
+    </div>
+    <div>
+        <label>Описание:</label><br>
+        <textarea name="description" required></textarea>
+    </div>
+    <div>
+        <label>Зарплата:</label><br>
+        <input type="text" name="salary" required>
+    </div>
+    <br>
+    <button type="submit" class="btn">Добавить</button>
+    <a href="/vacancies/" class="btn">Отмена</a>
+</form>
+{% endblock %}

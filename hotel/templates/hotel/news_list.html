@@ -1,0 +1,41 @@
+{% extends 'hotel/base.html' %}
+{% load static %}
+{% block title %}Новости{% endblock %}
+{% block content %}
+<h2>📰 Новости гостиницы</h2>
+
+<div class="search-sort">
+    <form method="get" style="display: inline-block;">
+        <input type="text" name="q" placeholder="Поиск по заголовку..." value="{{ query }}">
+        <button type="submit">🔍 Поиск</button>
+    </form>
+    <form method="get" style="display: inline-block; margin-left: 10px;">
+        <select name="sort" onchange="this.form.submit()">
+            <option value="-published_at" {% if request.GET.sort == '-published_at' %}selected{% endif %}>Сначала новые</option>
+            <option value="published_at" {% if request.GET.sort == 'published_at' %}selected{% endif %}>Сначала старые</option>
+        </select>
+    </form>
+</div>
+
+{% if user.is_superuser %}
+    <a href="/news/create/" class="btn" style="background:#27ae60; margin:20px 0; display:inline-block;">➕ Добавить новость</a>
+{% endif %}
+
+{% for news in news_list %}
+    <div class="news-item">
+        <h3>{{ news.title }}</h3>
+        {% if news.image %}
+            <img src="{{ news.image.url }}" width="200">
+        {% endif %}
+        <p><small>📅 {{ news.published_at|date:"d.m.Y" }}</small></p>
+        <p>{{ news.short_description }}</p>
+        <a href="/news/{{ news.id }}/" class="btn">Читать далее →</a>
+        {% if user.is_superuser %}
+            <a href="/news/update/{{ news.id }}/" class="btn" style="background:#f39c12;">✏ Редактировать</a>
+            <a href="/news/delete/{{ news.id }}/" class="btn" style="background:#e74c3c;">🗑 Удалить</a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>Новостей пока нет</p>
+{% endfor %}
+{% endblock %}

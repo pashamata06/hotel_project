@@ -1,0 +1,22 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Обновление брони{% endblock %}
+{% block content %}
+<h2>✏ Обновление статуса брони #{{ booking.id }}</h2>
+<p>Номер: {{ booking.room.room_number }}</p>
+<p>Клиент: {{ booking.client.last_name }} {{ booking.client.first_name }}</p>
+<p>Даты: {{ booking.check_in }} - {{ booking.check_out }}</p>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Статус:</label><br>
+        <select name="status">
+            <option value="pending" {% if booking.status == 'pending' %}selected{% endif %}>Ожидает</option>
+            <option value="confirmed" {% if booking.status == 'confirmed' %}selected{% endif %}>Подтверждена</option>
+            <option value="cancelled" {% if booking.status == 'cancelled' %}selected{% endif %}>Отменена</option>
+            <option value="completed" {% if booking.status == 'completed' %}selected{% endif %}>Завершена</option>
+        </select>
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+</form>
+{% endblock %}

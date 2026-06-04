@@ -1,0 +1,57 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Контакты{% endblock %}
+{% block content %}
+<h2>👥 Наши сотрудники</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+    {% for employee in employees %}
+        <div class="employee-card" style="background: white; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            {% if employee.photo %}
+                <img src="{{ employee.photo.url }}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid #667eea;">
+            {% else %}
+                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 48px; color: white;">👤</div>
+            {% endif %}
+            <h3 style="margin-bottom: 5px;">{{ employee.last_name }} {{ employee.first_name }}</h3>
+            <p style="color: #667eea; font-weight: 600; margin-bottom: 15px;">{{ employee.get_position_display }}</p>
+            <p style="margin: 8px 0;">📞 {{ employee.phone }}</p>
+            <p style="margin: 8px 0;">✉️ {{ employee.email }}</p>
+            {% if employee.bio %}
+                <p style="margin-top: 15px; color: #666; font-size: 14px;">{{ employee.bio }}</p>
+            {% endif %}
+            {% if user.is_superuser %}
+                <div style="margin-top: 20px;">
+                    <a href="/employees/update/{{ employee.id }}/" class="btn" style="background:#f39c12; margin:5px;">✏ Редактировать</a>
+                    <a href="/employees/delete/{{ employee.id }}/" class="btn" style="background:#e74c3c; margin:5px;">🗑 Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Сотрудников пока нет</p>
+    {% endfor %}
+</div>
+
+{% if user.is_superuser %}
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="/employees/create/" class="btn" style="background:#27ae60;">➕ Добавить сотрудника</a>
+    </div>
+{% endif %}
+
+<h2 style="margin-top: 50px;">🏢 Контактная информация</h2>
+<div style="background: white; border-radius: 16px; padding: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+    <p style="font-size: 18px; margin: 10px 0;">📍 <strong>Адрес:</strong> г. Минск, ул. Примерная, 123</p>
+    <p style="font-size: 18px; margin: 10px 0;">📞 <strong>Телефон для справок:</strong> +375 (29) 123-45-67</p>
+    <p style="font-size: 18px; margin: 10px 0;">📞 <strong>Отдел бронирования:</strong> +375 (29) 123-45-68</p>
+    <p style="font-size: 18px; margin: 10px 0;">✉️ <strong>Email:</strong> info@hotel-uyut.by</p>
+    <p style="font-size: 18px; margin: 10px 0;">🌐 <strong>Сайт:</strong> www.hotel-uyut.by</p>
+    
+    <h3 style="margin-top: 30px;">🕐 Режим работы</h3>
+    <p>Ресепшн: круглосуточно, без выходных</p>
+    <p>Ресторан: 07:00 - 23:00</p>
+    <p>СПА-центр: 09:00 - 22:00</p>
+    
+    <h3 style="margin-top: 30px;">🚗 Как добраться</h3>
+    <p>От ж/д вокзала: автобус №100, маршрутное такси №1050 до остановки "Улица Примерная"</p>
+    <p>От аэропорта: аэроэкспресс до ж/д вокзала, далее автобус №100</p>
+    <p>Бесплатная парковка для гостей отеля (по предварительному запросу)</p>
+</div>
+{% endblock %}

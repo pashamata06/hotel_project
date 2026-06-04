@@ -1,0 +1,26 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Бронирование номера{% endblock %}
+{% block content %}
+<h2>📅 Бронирование номера</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label>Выберите номер:</label><br>
+        <select name="room_id" required>
+            {% for room in rooms %}
+                <option value="{{ room.id }}">Номер {{ room.room_number }} - {{ room.category.name }} - {{ room.category.price_per_night }} руб./ночь</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label>Дата заезда:</label><br>
+        <input type="date" name="check_in" required>
+    </div>
+    <div>
+        <label>Дата выезда:</label><br>
+        <input type="date" name="check_out" required>
+    </div>
+    <br>
+    <button type="submit" class="btn">Забронировать</button>
+</form>
+{% endblock %}

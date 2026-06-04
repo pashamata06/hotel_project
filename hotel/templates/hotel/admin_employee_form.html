@@ -1,0 +1,36 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Добавить сотрудника{% endblock %}
+{% block content %}
+<h2>➕ Добавить сотрудника</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Имя:</label><br>
+        <input type="text" name="first_name" required>
+    </div>
+    <div>
+        <label>Фамилия:</label><br>
+        <input type="text" name="last_name" required>
+    </div>
+    <div>
+        <label>Должность:</label><br>
+        <select name="position">
+            <option value="admin">Администратор</option>
+            <option value="manager">Менеджер</option>
+            <option value="cleaner">Горничная</option>
+            <option value="reception">Ресепшн</option>
+        </select>
+    </div>
+    <div>
+        <label>Телефон:</label><br>
+        <input type="text" name="phone" placeholder="+375 (29) 123-45-67" required>
+    </div>
+    <div>
+        <label>Email:</label><br>
+        <input type="email" name="email" required>
+    </div>
+    <br>
+    <button type="submit" class="btn">Добавить</button>
+    <a href="/contacts/" class="btn">Отмена</a>
+</form>
+{% endblock %}

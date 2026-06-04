@@ -1,0 +1,12 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Удалить бронь{% endblock %}
+{% block content %}
+<h2>⚠️ Удалить бронь #{{ booking.id }}?</h2>
+<p>Номер: {{ booking.room.room_number }}</p>
+<p>Клиент: {{ booking.client.last_name }} {{ booking.client.first_name }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn" style="background:#e74c3c">Да, удалить</button>
+    <a href="/profile/" class="btn">Отмена</a>
+</form>
+{% endblock %}

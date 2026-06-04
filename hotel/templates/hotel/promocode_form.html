@@ -1,0 +1,31 @@
+{% extends 'hotel/base.html' %}
+{% block title %}{% if promocode %}Редактировать промокод{% else %}Добавить промокод{% endif %}{% endblock %}
+{% block content %}
+<h2>{% if promocode %}✏ Редактировать промокод{% else %}➕ Добавить промокод{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Код промокода:</label><br>
+        <input type="text" name="code" value="{{ promocode.code|default:'' }}" required>
+    </div>
+    <div>
+        <label>Скидка (%):</label><br>
+        <input type="number" name="discount_percent" value="{{ promocode.discount_percent|default:'' }}" required>
+    </div>
+    <div>
+        <label>Активен:</label><br>
+        <input type="checkbox" name="is_active" {% if promocode.is_active %}checked{% endif %}>
+    </div>
+    <div>
+        <label>Дата начала:</label><br>
+        <input type="datetime-local" name="start_date" value="{{ promocode.start_date|date:'Y-m-d\TH:i'|default:'' }}" required>
+    </div>
+    <div>
+        <label>Дата окончания:</label><br>
+        <input type="datetime-local" name="end_date" value="{{ promocode.end_date|date:'Y-m-d\TH:i'|default:'' }}" required>
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="/promocodes/" class="btn">Отмена</a>
+</form>
+{% endblock %}

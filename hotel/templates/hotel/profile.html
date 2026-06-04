@@ -1,0 +1,26 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h2>👤 Личный кабинет</h2>
+<p>Добро пожаловать, {{ user.username }}!</p>
+
+<a href="/booking/create/" class="btn" style="background:#27ae60;">📅 Забронировать номер</a>
+
+<h3>📋 Мои брони</h3>
+{% for booking in bookings %}
+    <div class="booking-item">
+        <p>Номер: {{ booking.room.room_number }} ({{ booking.room.category.name }})</p>
+        <p>Заезд: {{ booking.check_in }} → Выезд: {{ booking.check_out }}</p>
+        <p>Сумма: {{ booking.total_price }} руб.</p>
+        <p>Статус: 
+            {% if booking.status == 'pending' %}⏳ Ожидает
+            {% elif booking.status == 'confirmed' %}✅ Подтверждена
+            {% elif booking.status == 'cancelled' %}❌ Отменена
+            {% else %}📌 Завершена
+            {% endif %}
+        </p>
+    </div>
+{% empty %}
+    <p>У вас пока нет броней</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{% block title %}Гостиница "Уют"{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'hotel/css/style.css' %}?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏨 Гостиница "Уют"</h1>
+            <nav>
+                <a href="/" {% if request.path == '/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Главная</a>
+                <a href="/about/" {% if request.path == '/about/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>О компании</a>
+                <a href="/news/" {% if '/news/' in request.path and not request.path == '/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Новости</a>
+                <a href="/glossary/" {% if request.path == '/glossary/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Словарь</a>
+                <a href="/contacts/" {% if request.path == '/contacts/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Контакты</a>
+                <a href="/vacancies/" {% if request.path == '/vacancies/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Вакансии</a>
+                <a href="/reviews/" {% if request.path == '/reviews/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Отзывы</a>
+                <a href="/promocodes/" {% if request.path == '/promocodes/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Промокоды</a>
+                <a href="/privacy/" {% if request.path == '/privacy/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Политика</a>
+                {% if user.is_authenticated %}
+                    <a href="/all-bookings/" {% if '/all-bookings/' in request.path %}style="background: #48bb78; color: white;"{% else %}style="background:#48bb78; color:white;"{% endif %}>📋 Брони</a>
+                    <a href="/profile/" {% if request.path == '/profile/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>👤 {{ user.username }}</a>
+                    <a href="/logout/">Выйти</a>
+                {% else %}
+                    <a href="/login/" {% if request.path == '/login/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Вход</a>
+                    <a href="/register/" {% if request.path == '/register/' %}style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;"{% endif %}>Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© 2026 Гостиница "Уют" | Все права защищены</p>
+            <p>📍 Минск, ул. Примерная, 123 | 📞 +375 (29) 123-45-67</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'hotel/base.html' %}
+{% block title %}{% if employee %}Редактировать сотрудника{% else %}Добавить сотрудника{% endif %}{% endblock %}
+{% block content %}
+<h2>{% if employee %}✏ Редактировать сотрудника{% else %}➕ Добавить сотрудника{% endif %}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label>Имя:</label><br>
+        <input type="text" name="first_name" value="{{ employee.first_name|default:'' }}" required>
+    </div>
+    <div>
+        <label>Фамилия:</label><br>
+        <input type="text" name="last_name" value="{{ employee.last_name|default:'' }}" required>
+    </div>
+    <div>
+        <label>Должность:</label><br>
+        <select name="position">
+            <option value="admin" {% if employee.position == 'admin' %}selected{% endif %}>Администратор</option>
+            <option value="manager" {% if employee.position == 'manager' %}selected{% endif %}>Менеджер</option>
+            <option value="cleaner" {% if employee.position == 'cleaner' %}selected{% endif %}>Горничная</option>
+            <option value="reception" {% if employee.position == 'reception' %}selected{% endif %}>Ресепшн</option>
+        </select>
+    </div>
+    <div>
+        <label>Телефон (+375 (29) XXX-XX-XX):</label><br>
+        <input type="text" name="phone" value="{{ employee.phone|default:'' }}" placeholder="+375 (29) 123-45-67" required>
+    </div>
+    <div>
+        <label>Email:</label><br>
+        <input type="email" name="email" value="{{ employee.email|default:'' }}" required>
+    </div>
+    <div>
+        <label>Фото:</label><br>
+        <input type="file" name="photo" accept="image/*">
+        {% if employee.photo %}
+            <p><img src="{{ employee.photo.url }}" width="100"></p>
+        {% endif %}
+    </div>
+    <div>
+        <label>О сотруднике:</label><br>
+        <textarea name="bio">{{ employee.bio|default:'' }}</textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="/contacts/" class="btn">Отмена</a>
+</form>
+{% endblock %}

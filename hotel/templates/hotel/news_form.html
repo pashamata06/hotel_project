@@ -1,0 +1,30 @@
+{% extends 'hotel/base.html' %}
+{% block title %}{% if news %}Редактировать новость{% else %}Добавить новость{% endif %}{% endblock %}
+{% block content %}
+<h2>{% if news %}✏ Редактировать новость{% else %}➕ Добавить новость{% endif %}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <label>Заголовок:</label><br>
+        <input type="text" name="title" value="{{ news.title|default:'' }}" required>
+    </div>
+    <div>
+        <label>Краткое описание:</label><br>
+        <textarea name="short_description" required>{{ news.short_description|default:'' }}</textarea>
+    </div>
+    <div>
+        <label>Полный текст:</label><br>
+        <textarea name="full_text" required>{{ news.full_text|default:'' }}</textarea>
+    </div>
+    <div>
+        <label>Фото:</label><br>
+        <input type="file" name="image" accept="image/*">
+        {% if news.image %}
+            <p>Текущее фото: <img src="{{ news.image.url }}" width="100"></p>
+        {% endif %}
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="/news/" class="btn">Отмена</a>
+</form>
+{% endblock %}

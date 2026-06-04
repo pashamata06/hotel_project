@@ -1,0 +1,37 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Вакансии{% endblock %}
+{% block content %}
+<h2>💼 Вакансии в отеле "Уют"</h2>
+
+<p style="margin-bottom: 30px;">Присоединяйтесь к нашей команде профессионалов! Мы предлагаем конкурентную зарплату, официальное трудоустройство, комфортные условия работы и возможности для карьерного роста.</p>
+
+{% if user.is_superuser %}
+    <a href="/vacancies/create/" class="btn" style="background:#27ae60; margin-bottom:20px; display:inline-block;">➕ Добавить вакансию</a>
+{% endif %}
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px;">
+    {% for vacancy in vacancies_list %}
+        <div class="vacancy-card" style="background: white; border-radius: 16px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: transform 0.3s;">
+            <h3 style="color: #667eea; margin-bottom: 10px;">{{ vacancy.title }}</h3>
+            <p style="color: #27ae60; font-size: 20px; font-weight: bold; margin: 10px 0;">💰 {{ vacancy.salary }}</p>
+            <p style="margin: 15px 0; line-height: 1.5;">{{ vacancy.description }}</p>
+            
+            {% if user.is_superuser %}
+                <div style="margin-top: 20px;">
+                    <a href="/vacancies/update/{{ vacancy.id }}/" class="btn" style="background:#f39c12; margin:5px;">✏ Редактировать</a>
+                    <a href="/vacancies/delete/{{ vacancy.id }}/" class="btn" style="background:#e74c3c; margin:5px;">🗑 Удалить</a>
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>Вакансий пока нет</p>
+    {% endfor %}
+</div>
+
+<div style="background: #e8f5e9; border-radius: 16px; padding: 30px; margin-top: 40px; text-align: center;">
+    <h3>📧 Как отправить резюме</h3>
+    <p>Вы можете отправить своё резюме на электронную почту: <strong>hr@hotel-uyut.by</strong></p>
+    <p>Также вы можете позвонить по телефону: <strong>+375 (29) 123-45-69</strong></p>
+    <p style="margin-top: 15px;">В теме письма укажите желаемую должность. Мы рассмотрим вашу кандидатуру и свяжемся с вами в ближайшее время!</p>
+</div>
+{% endblock %}

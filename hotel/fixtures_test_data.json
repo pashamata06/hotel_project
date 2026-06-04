@@ -1,0 +1,375 @@
+[
+  {
+    "model": "hotel.roomcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Эконом",
+      "capacity": 2,
+      "price_per_night": "120.00",
+      "description": "Уютный номер с минимальным набором удобств",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.roomcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Стандарт",
+      "capacity": 2,
+      "price_per_night": "200.00",
+      "description": "Комфортный номер с телевизором и кондиционером",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.roomcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Люкс",
+      "capacity": 4,
+      "price_per_night": "400.00",
+      "description": "Просторный номер с гостиной зоной и джакузи",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 1,
+    "fields": {
+      "room_number": "101",
+      "category": 1,
+      "is_available": true,
+      "description": "Номер с видом во двор",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 2,
+    "fields": {
+      "room_number": "102",
+      "category": 1,
+      "is_available": true,
+      "description": "Номер с видом на улицу",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 3,
+    "fields": {
+      "room_number": "201",
+      "category": 2,
+      "is_available": true,
+      "description": "Стандарт с балконом",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 4,
+    "fields": {
+      "room_number": "202",
+      "category": 2,
+      "is_available": false,
+      "description": "Стандарт с кондиционером",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.room",
+    "pk": 5,
+    "fields": {
+      "room_number": "301",
+      "category": 3,
+      "is_available": true,
+      "description": "Люкс с панорамным видом",
+      "photo": ""
+    }
+  },
+  {
+    "model": "hotel.news",
+    "pk": 1,
+    "fields": {
+      "title": "Открытие нового СПА-центра",
+      "short_description": "Приглашаем гостей посетить наш новый СПА-центр",
+      "full_text": "С 1 июня 2026 года в нашей гостинице открывается новый СПА-центр. Сауна, хаммам, массажный кабинет. Для первых 50 гостей скидка 20%.",
+      "image": "",
+      "created_at": "2026-05-01T10:00:00Z",
+      "published_at": "2026-05-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.news",
+    "pk": 2,
+    "fields": {
+      "title": "Новогодние акции 2026",
+      "short_description": "Забронируйте номер на Новый год 2027 со скидкой",
+      "full_text": "Встречайте Новый 2027 год в нашей гостинице. Скидка 25% при бронировании от 3 ночей. Включен праздничный ужин.",
+      "image": "",
+      "created_at": "2026-11-15T10:00:00Z",
+      "published_at": "2026-11-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.news",
+    "pk": 3,
+    "fields": {
+      "title": "Лучшая гостиница 2026 года",
+      "short_description": "Мы получили премию в номинации Лучший сервис",
+      "full_text": "По итогам 2026 года наша гостиница признана лучшей. Спасибо нашим гостям за доверие! Для всех постоянных клиентов скидка 10% на следующее бронирование.",
+      "image": "",
+      "created_at": "2026-12-20T10:00:00Z",
+      "published_at": "2026-12-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.news",
+    "pk": 4,
+    "fields": {
+      "title": "Весенние скидки 2026",
+      "short_description": "Скидки до 30% на бронирование в марте-апреле",
+      "full_text": "Весеннее настроение! Скидки до 30% на все категории номеров при бронировании от 2 ночей. Акция действует с 1 марта по 30 апреля 2026 года.",
+      "image": "",
+      "created_at": "2026-02-25T10:00:00Z",
+      "published_at": "2026-02-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.news",
+    "pk": 5,
+    "fields": {
+      "title": "Ремонт номеров завершён",
+      "short_description": "Все номера категории Стандарт обновлены",
+      "full_text": "Рады сообщить, что завершили ремонт во всех номерах категории Стандарт. Новая мебель, свежий ремонт, современная техника. Ждём вас!",
+      "image": "",
+      "created_at": "2026-01-15T10:00:00Z",
+      "published_at": "2026-01-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.glossaryterm",
+    "pk": 1,
+    "fields": {
+      "term": "Бронь",
+      "definition": "Предварительное бронирование номера с фиксацией дат и цены",
+      "added_date": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.glossaryterm",
+    "pk": 2,
+    "fields": {
+      "term": "Чек-ин",
+      "definition": "Заселение в отель, обычно с 14:00",
+      "added_date": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.glossaryterm",
+    "pk": 3,
+    "fields": {
+      "term": "Чек-аут",
+      "definition": "Выезд из отеля, обычно до 12:00",
+      "added_date": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.glossaryterm",
+    "pk": 4,
+    "fields": {
+      "term": "Олл-инклюзив",
+      "definition": "Система питания, включающая завтрак, обед, ужин и напитки",
+      "added_date": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.glossaryterm",
+    "pk": 5,
+    "fields": {
+      "term": "Консьерж",
+      "definition": "Сотрудник, помогающий гостям с организацией услуг, билетов, трансферов",
+      "added_date": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.vacancy",
+    "pk": 1,
+    "fields": {
+      "title": "Администратор отеля",
+      "description": "Встреча гостей, оформление броней, работа с рекламациями. График 2/2.",
+      "salary": "от 1800 руб.",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.vacancy",
+    "pk": 2,
+    "fields": {
+      "title": "Горничная",
+      "description": "Уборка номеров, смена белья. Опыт не требуется.",
+      "salary": "от 1100 руб.",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.vacancy",
+    "pk": 3,
+    "fields": {
+      "title": "Шеф-повар",
+      "description": "Организация работы кухни, составление меню, контроль качества.",
+      "salary": "от 3000 руб.",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.vacancy",
+    "pk": 4,
+    "fields": {
+      "title": "Портье",
+      "description": "Работа на ресепшн, бронирование, расчёт гостей. Английский язык приветствуется.",
+      "salary": "от 1400 руб.",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.vacancy",
+    "pk": 5,
+    "fields": {
+      "title": "Менеджер по бронированию",
+      "description": "Работа с онлайн-системами бронирования, подтверждение заявок.",
+      "salary": "от 2000 руб.",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.employee",
+    "pk": 1,
+    "fields": {
+      "user": null,
+      "first_name": "Иван",
+      "last_name": "Иванов",
+      "position": "admin",
+      "phone": "+375 (29) 111-11-11",
+      "email": "ivanov@hotel.ru",
+      "photo": "",
+      "bio": "Опыт работы в гостиничном бизнесе 10 лет",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.employee",
+    "pk": 2,
+    "fields": {
+      "user": null,
+      "first_name": "Мария",
+      "last_name": "Петрова",
+      "position": "manager",
+      "phone": "+375 (29) 222-22-22",
+      "email": "petrova@hotel.ru",
+      "photo": "",
+      "bio": "Управление персоналом, контроль качества",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.employee",
+    "pk": 3,
+    "fields": {
+      "user": null,
+      "first_name": "Алексей",
+      "last_name": "Сидоров",
+      "position": "reception",
+      "phone": "+375 (29) 333-33-33",
+      "email": "sidorov@hotel.ru",
+      "photo": "",
+      "bio": "Встреча и размещение гостей",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.employee",
+    "pk": 4,
+    "fields": {
+      "user": null,
+      "first_name": "Елена",
+      "last_name": "Козлова",
+      "position": "cleaner",
+      "phone": "+375 (29) 444-44-44",
+      "email": "kozlova@hotel.ru",
+      "photo": "",
+      "bio": "Поддержание чистоты в номерах",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.employee",
+    "pk": 5,
+    "fields": {
+      "user": null,
+      "first_name": "Дмитрий",
+      "last_name": "Морозов",
+      "position": "admin",
+      "phone": "+375 (29) 555-55-55",
+      "email": "morozov@hotel.ru",
+      "photo": "",
+      "bio": "Старший администратор, решение спорных вопросов",
+      "created_at": "2026-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "hotel.promocode",
+    "pk": 1,
+    "fields": {
+      "code": "WELCOME2026",
+      "discount_percent": 10,
+      "is_active": true,
+      "start_date": "2026-01-01T00:00:00Z",
+      "end_date": "2026-12-31T23:59:59Z"
+    }
+  },
+  {
+    "model": "hotel.promocode",
+    "pk": 2,
+    "fields": {
+      "code": "SUMMER2026",
+      "discount_percent": 20,
+      "is_active": true,
+      "start_date": "2026-06-01T00:00:00Z",
+      "end_date": "2026-08-31T23:59:59Z"
+    }
+  },
+  {
+    "model": "hotel.promocode",
+    "pk": 3,
+    "fields": {
+      "code": "NEWYEAR2027",
+      "discount_percent": 25,
+      "is_active": true,
+      "start_date": "2026-12-20T00:00:00Z",
+      "end_date": "2027-01-10T23:59:59Z"
+    }
+  },
+  {
+    "model": "hotel.promocode",
+    "pk": 4,
+    "fields": {
+      "code": "SPRING30",
+      "discount_percent": 30,
+      "is_active": true,
+      "start_date": "2026-03-01T00:00:00Z",
+      "end_date": "2026-04-30T23:59:59Z"
+    }
+  },
+  {
+    "model": "hotel.promocode",
+    "pk": 5,
+    "fields": {
+      "code": "AUTUMN15",
+      "discount_percent": 15,
+      "is_active": false,
+      "start_date": "2025-09-01T00:00:00Z",
+      "end_date": "2025-11-30T23:59:59Z"
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Удалить сотрудника{% endblock %}
+{% block content %}
+<h2>⚠️ Удалить сотрудника?</h2>
+<p>{{ employee.last_name }} {{ employee.first_name }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Да, удалить</button>
+    <a href="/contacts/" class="btn">Отмена</a>
+</form>
+{% endblock %}

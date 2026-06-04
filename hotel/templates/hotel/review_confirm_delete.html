@@ -1,0 +1,12 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Удалить отзыв{% endblock %}
+{% block content %}
+<h2>⚠️ Удалить отзыв?</h2>
+<p><strong>{{ review.client.last_name }} {{ review.client.first_name }}</strong> - Оценка: {{ review.rating }}/5</p>
+<p>{{ review.text }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn" style="background:#e74c3c">Да, удалить</button>
+    <a href="/reviews/" class="btn">Отмена</a>
+</form>
+{% endblock %}

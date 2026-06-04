@@ -1,0 +1,25 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Отзывы{% endblock %}
+{% block content %}
+<h2>⭐ Отзывы наших гостей</h2>
+
+{% if user.is_authenticated %}
+    <a href="/review/create/" class="btn" style="background:#27ae60; margin-bottom:20px; display:inline-block;">✍️ Добавить отзыв</a>
+{% else %}
+    <p><a href="/login/">Войдите</a> чтобы оставить отзыв</p>
+{% endif %}
+
+{% for review in reviews_list %}
+    <div class="review-item">
+        <p><strong>{{ review.client.last_name }} {{ review.client.first_name }}</strong> — 
+        <span class="rating">{% for i in "12345"|slice:review.rating %}⭐{% endfor %}</span> ({{ review.rating }}/5)</p>
+        <p>{{ review.text }}</p>
+        {% if user.is_superuser or user.employee.position == 'manager' %}
+            <a href="/review/delete/{{ review.id }}/" class="btn" style="background:#e74c3c;">🗑 Удалить</a>
+        {% endif %}
+        <hr>
+    </div>
+{% empty %}
+    <p>Отзывов пока нет. Будьте первыми!</p>
+{% endfor %}
+{% endblock %}

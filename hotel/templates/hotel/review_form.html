@@ -1,0 +1,24 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Добавить отзыв{% endblock %}
+{% block content %}
+<h2>✍️ Добавить отзыв</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Оценка (1-5):</label><br>
+        <select name="rating">
+            <option value="5">5 - Отлично</option>
+            <option value="4">4 - Хорошо</option>
+            <option value="3">3 - Нормально</option>
+            <option value="2">2 - Плохо</option>
+            <option value="1">1 - Ужасно</option>
+        </select>
+    </div>
+    <div>
+        <label>Ваш отзыв:</label><br>
+        <textarea name="text" rows="5" cols="50" required></textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn">Отправить отзыв</button>
+</form>
+{% endblock %}

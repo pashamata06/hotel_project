@@ -1,0 +1,45 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Все бронирования{% endblock %}
+{% block content %}
+<h2>📋 Все бронирования</h2>
+
+{% if is_manager %}
+    <div style="background:#e8f5e9; padding:15px; border-radius:10px; margin-bottom:20px;">
+        👑 Вы вошли как МЕНЕДЖЕР - можете управлять бронями (изменять статус, удалять)
+    </div>
+{% elif user.is_superuser %}
+    <div style="background:#fff3e0; padding:15px; border-radius:10px; margin-bottom:20px;">
+        👑 Вы вошли как АДМИНИСТРАТОР - полный доступ
+    </div>
+{% else %}
+    <div style="background:#e3f2fd; padding:15px; border-radius:10px; margin-bottom:20px;">
+        👤 Ваши бронирования
+    </div>
+{% endif %}
+
+{% for booking in bookings %}
+    <div class="booking-item">
+        <h3>Бронь #{{ booking.id }}</h3>
+        <p><strong>Клиент:</strong> {{ booking.client.last_name }} {{ booking.client.first_name }}</p>
+        <p><strong>Номер:</strong> {{ booking.room.room_number }} ({{ booking.room.category.name }})</p>
+        <p><strong>Заезд:</strong> {{ booking.check_in }} → <strong>Выезд:</strong> {{ booking.check_out }}</p>
+        <p><strong>Сумма:</strong> {{ booking.total_price }} руб.</p>
+        <p><strong>Статус:</strong> 
+            {% if booking.status == 'pending' %}⏳ Ожидает
+            {% elif booking.status == 'confirmed' %}✅ Подтверждена
+            {% elif booking.status == 'cancelled' %}❌ Отменена
+            {% else %}📌 Завершена
+            {% endif %}
+        </p>
+        
+        {% if user.is_superuser or is_manager %}
+            <a href="/booking/update/{{ booking.id }}/" class="btn" style="background:#f39c12;">✏ Изменить статус</a>
+            <a href="/booking/delete/{{ booking.id }}/" class="btn" style="background:#e74c3c;">🗑 Удалить</a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>Бронирований пока нет</p>
+{% endfor %}
+
+<a href="/booking/create/" class="btn btn-success" style="margin-top:20px;">📅 Новая бронь</a>
+{% endblock %}

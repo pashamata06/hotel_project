@@ -1,0 +1,19 @@
+{% extends 'hotel/base.html' %}
+{% block title %}{% if term %}Редактировать термин{% else %}Добавить термин{% endif %}{% endblock %}
+{% block content %}
+<h2>{% if term %}✏ Редактировать термин{% else %}➕ Добавить термин{% endif %}</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>Термин:</label><br>
+        <input type="text" name="term" value="{{ term.term|default:'' }}" required>
+    </div>
+    <div>
+        <label>Определение:</label><br>
+        <textarea name="definition" required>{{ term.definition|default:'' }}</textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn">Сохранить</button>
+    <a href="/glossary/" class="btn">Отмена</a>
+</form>
+{% endblock %}

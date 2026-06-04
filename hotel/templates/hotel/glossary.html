@@ -1,0 +1,21 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Словарь терминов{% endblock %}
+{% block content %}
+<h2>📖 Словарь терминов</h2>
+{% if user.is_superuser %}
+    <a href="/terms/create/" class="btn" style="background:#27ae60; margin-bottom:20px; display:inline-block;">➕ Добавить термин</a>
+{% endif %}
+{% for term in terms %}
+    <div class="term-item">
+        <strong>{{ term.term }}</strong>
+        <p>{{ term.definition }}</p>
+        {% if user.is_superuser %}
+            <a href="/terms/update/{{ term.id }}/" class="btn" style="background:#f39c12;">✏ Редактировать</a>
+            <a href="/terms/delete/{{ term.id }}/" class="btn" style="background:#e74c3c;">🗑 Удалить</a>
+        {% endif %}
+        <hr>
+    </div>
+{% empty %}
+    <p>Терминов пока нет</p>
+{% endfor %}
+{% endblock %}

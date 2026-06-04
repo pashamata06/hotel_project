@@ -1,0 +1,23 @@
+{% extends 'hotel/base.html' %}
+{% block title %}Промокоды{% endblock %}
+{% block content %}
+<h2>🎫 Промокоды и купоны</h2>
+{% if user.is_superuser %}
+    <a href="/promocodes/create/" class="btn" style="background:#27ae60; margin-bottom:20px; display:inline-block;">➕ Добавить промокод</a>
+{% endif %}
+{% for promo in promocodes_list %}
+    <div class="promo-item">
+        <h3>{{ promo.code }}</h3>
+        <p>Скидка: {{ promo.discount_percent }}%</p>
+        <p>Действует с {{ promo.start_date|date:"d.m.Y" }} по {{ promo.end_date|date:"d.m.Y" }}</p>
+        <p>Статус: {% if promo.is_active %}✅ Активен{% else %}📦 Архив{% endif %}</p>
+        {% if user.is_superuser %}
+            <a href="/promocodes/update/{{ promo.id }}/" class="btn" style="background:#f39c12;">✏ Редактировать</a>
+            <a href="/promocodes/delete/{{ promo.id }}/" class="btn" style="background:#e74c3c;">🗑 Удалить</a>
+        {% endif %}
+        <hr>
+    </div>
+{% empty %}
+    <p>Промокодов пока нет</p>
+{% endfor %}
+{% endblock %}
